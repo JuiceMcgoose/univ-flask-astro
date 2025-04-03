@@ -16,12 +16,9 @@ def login():
     return render_template('login.html')
 
 
-@auth.route("/signup") 
-def signup():
-    return render_template('signup.html')
-
-@auth.route('/signup',methods=['POST'])
+@auth.route('/signup',methods=['Get', 'POST'])
 def signup_post():
+
     email = request.form.get('email')
     name = request.form.get('name')
     password = request.form.get('password')
@@ -35,6 +32,8 @@ def signup_post():
 
     db.session.add(new_user)
     db.seesion.commit()
+
+    return redirect(url_for("/login.html"))
 
 
 
