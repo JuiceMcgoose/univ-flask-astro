@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Appareils Photo{% endblock %}
+
+{% block content %}
+<h1>Appareils Photo</h1>
+
+{% for categorie, appareils in categories.items() %}
+    <h2>{{ categorie }}</h2>
+    <ul>
+        {% for appareil in appareils %}
+            <li>
+                <strong>{{ appareil.marque }} {{ appareil.modele }}</strong><br>
+                Date de sortie : {{ appareil.date }}<br>
+                Score : {{ appareil.score }}/5
+            </li>
+        {% endfor %}
+    </ul>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Photographies{% endblock %}
+{% block content %}
+<h1>Photographies</h1>
+<ul>
+    {% for photo in photos %}
+        <li>
+            "{{ photo.titre }}" par {{ photo.auteur }} ({{ photo.année }})
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

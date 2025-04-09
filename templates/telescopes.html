@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Télescopes{% endblock %}
+{% block content %}
+<h1>Télescopes</h1>
+{% for categorie, scopes in categories.items() %}
+    <h2>{{ categorie }}</h2>
+    <ul>
+        {% for scope in scopes %}
+            <li>
+                {{ scope.marque }} {{ scope.modele }} ({{ scope.date }}) - Score : {{ scope.score }}/5
+            </li>
+        {% endfor %}
+    </ul>
+{% endfor %}
+{% endblock %}
