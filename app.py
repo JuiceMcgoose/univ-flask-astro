@@ -1,15 +1,11 @@
-from flask import render_template 
+from flask import render_template, request, flash, url_for
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from app import db
-from model import db, User
+from user_file import users  
+
 
 app = Flask(__name__)
-
-# Configuration de la base de données SQLite
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-
-db.init_app(app)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 @app.route("/")
 def home_page():
@@ -20,14 +16,14 @@ def home_page():
 def cameras():
     categories = {
         "Amateur": [
-            {"marque": "Canon", "modele": "EOS 2000D", "date": "2019", "score": 3},
-            {"marque": "Nikon", "modele": "D3500", "date": "2020", "score": 4}
+            {"marque": "SonyV2", "modele": "Mehdi c'est bien", "date": "1975", "score": 3},
+
         ],
         "Amateur sérieux": [
-            {"marque": "Sony", "modele": "Alpha 6400", "date": "2021", "score": 4}
+            {"marque": "Sony", "modele": " SonyBX", "date": "2021", "score": 4}
         ],
         "Professionnel": [
-            {"marque": "Canon", "modele": "EOS R5", "date": "2022", "score": 5}
+            {"marque": "Canon", "modele": "c'est canon", "date": "2022", "score": 5}
         ]
     }
     return render_template('cameras.html', categories=categories)
@@ -37,48 +33,79 @@ def cameras():
 def telescopes():
     categories = {
         "Enfants": [
-            {"marque": "Celestron", "modele": "FirstScope", "date": "2018", "score": 3}
+            {"marque": "Sony", "modele": "Sony1", "date": "2018", "score": 4}
         ],
         "Automatisés": [
-            {"marque": "SkyWatcher", "modele": "Virtuoso", "date": "2021", "score": 4}
+            {"marque": "sdfsdfsdf", "modele": "Samsung2", "date": "2021", "score": 4}
         ],
         "Complets": [
-            {"marque": "Orion", "modele": "XT10", "date": "2020", "score": 5}
+            {"marque": "Samsung", "modele": "1", "date": "2020", "score": 2}
         ]
     }
     return render_template('telescopes.html', categories=categories)
 
 
-@app.route('/photographies')
+@app.route('/photos', methods=['GET'])
 def photos():
-    photos = [
-        {"titre": "Photo 1", "auteur": "Mehdi", "année": "2021"},
-        {"titre": "Le Soleil", "auteur": "Terry Davis", "année": "2022"},
-    ]
-    return render_template('photos.html', photos=photos)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+    return render_template('photos.html')
 
-
-@app.route("/login")
+@app.route("/login", methods=['GET', 'POST'])
 def login_page():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        if username in users and users[username] == password:
+            flash("Your account has beed found !")
+        else:
+            flash("No account found...")
+            render_template('login.html', username=username)
+        
     return render_template("login.html")
 
-@app.route("/register")
+
+@app.route("/register",methods=['GET','POST'])
 def register_page():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        if username in users:
+            flash("User already exists!")
+        else:
+            users[username] = password
+
+            with open("user_file.py", "w") as f:
+                f.write(f"users = {users}")
+    
+            flash(f"Votre compte: {username} avec le mdp {password} a bien ete fait!")
+    
     return render_template("register.html")
 
-@app.route('/add')
-def add_data():
-    # Ajouter un utilisateur
-    user = User(username='john_doe', email='john@example.com', password='12345')
-    db.session.add(user)
+import sqlite3
+from flask import g 
+# g est une variable de contexte
 
-    # Valider les ajouts dans la base
-    db.session.commit()
-    return 'Data added!'
+DATABASE = 'mydb.db'
+
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = sqlite3.connect(DATABASE)
+        db.row_factory = sqlite3.Row
+    return db
 
 
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
 
+
+def read_db(query, args=(), one=False):
+    cur = get_db().execute(query, args)
+    rv = cur.fetchall()
+    cur.close()
+    return (rv[0] if rv else None) if one else rv
 

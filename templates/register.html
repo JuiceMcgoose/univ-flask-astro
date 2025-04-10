@@ -1,6 +1,18 @@
+<!DOCTYPE html>
 <form method="POST">
     <input type="text" name="username" placeholder="Nom d'utilisateur" required>
     <input type="password" name="password" placeholder="Mot de passe" required>
     <input type="submit" value="S'inscrire">
 </form>
 <a href="/login">Déjà inscrit ? Connexion</a>
+
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}

@@ -1,12 +1,21 @@
-{% extends 'base.html' %}
-{% block title %}Photographies{% endblock %}
-{% block content %}
-<h1>Photographies</h1>
-<ul>
-    {% for photo in photos %}
-        <li>
-            "{{ photo.titre }}" par {{ photo.auteur }} ({{ photo.année }})
-        </li>
-    {% endfor %}
-</ul>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Les photos d'astronomie</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <img 
+        src="{{ url_for('static', filename='chiot.jpg') }}" 
+    >
+    <img 
+        src="{{ url_for('static', filename='images2x.jpg') }}" 
+        sizes="400px"
+    >
+    <img 
+        src="{{ url_for('static', filename='galaxy.jpg') }}" 
+        sizes="1000px"
+    >
+</body>
+</html>
