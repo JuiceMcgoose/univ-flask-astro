@@ -1,21 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
+    <meta charset="UTF-8">
     <title>Les photos d'astronomie</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
 
-    <img 
-        src="{{ url_for('static', filename='chiot.jpg') }}" 
-    >
-    <img 
-        src="{{ url_for('static', filename='images2x.jpg') }}" 
-        sizes="400px"
-    >
-    <img 
-        src="{{ url_for('static', filename='galaxy.jpg') }}" 
-        sizes="1000px"
-    >
+    <h1>✨ Nos adorables explorateurs de l'espace! </h1>
+
+    <div class="gallery">
+        <img src="{{ url_for('static', filename='chiot.jpg') }}" alt="Chiot étoilé">
+        <img src="{{ url_for('static', filename='images2x.jpg') }}" alt="Chiot cosmique">
+        <img src="{{ url_for('static', filename='galaxy.jpg') }}" alt="Galaxie lointaine">
+    </div>
+
 </body>
 </html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion - AstroChiots</title>
+    <style>
+        body {
+            background-color: #1c2b36;
+            color: #fff; /
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
+</head>

@@ -1,17 +1,50 @@
 <!DOCTYPE html>
-<form method="POST">
-    <input type="text" name="username" placeholder="Nom d'utilisateur" required>
-    <input type="password" name="password" placeholder="Mot de passe" required>
-    <input type="submit" value="Se connecter">
-</form>
-<a href="/register">Crée un compte ici.</a>
+<html lang="fr">
 
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li class="{{ category }}">{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
+<body>
+    <form method="POST" class="login-form">
+        <h1>Se connecter - AstroChiots</h1>
+        <input type="text" name="username" placeholder="Nom d'utilisateur" required>
+        <input type="password" name="password" placeholder="Mot de passe" required>
+        <input type="submit" value="Se connecter">
+        <p>Pas encore inscrit ? <a href="/register">Crée un compte ici.</a></p>
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flashes">
+        {% for message in messages %}
+          <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+</body>
+</html>
+
+
+<head>
+  <meta charset="UTF-8">
+  <title>Connexion - AstroChiots</title>
+  <style>
+      body {
+          background-color: #1c2b36; /* Fond sombre */
+          color: #fff; /* Texte clair */
+          font-family: Arial, sans-serif;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          margin: 0;
+      }
+
+      .login-form {
+          background: #2d3b47;
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+          width: 100%;
+          max-width: 400px;
+      }
+  </style>
+</head>

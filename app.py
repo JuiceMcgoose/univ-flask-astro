@@ -1,4 +1,4 @@
-from flask import render_template, request, flash, url_for
+from flask import render_template, request, flash
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from user_file import users  
@@ -88,24 +88,10 @@ from flask import g
 
 DATABASE = 'mydb.db'
 
+#pour la base de donnees, mias non utilise
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
         db = g._database = sqlite3.connect(DATABASE)
         db.row_factory = sqlite3.Row
     return db
-
-
-@app.teardown_appcontext
-def close_connection(exception):
-    db = getattr(g, '_database', None)
-    if db is not None:
-        db.close()
-
-
-def read_db(query, args=(), one=False):
-    cur = get_db().execute(query, args)
-    rv = cur.fetchall()
-    cur.close()
-    return (rv[0] if rv else None) if one else rv
-

@@ -1,14 +1,10 @@
 from flask_sqlalchemy import SQLAlchemy
 
 
-#configuration de la base de donnees
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-
-
 #initialise notre db
 db = SQLAlchemy()
 
-
+#nous servira a remplir la bdd
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(120), unique=True, nullable=False)

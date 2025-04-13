@@ -1,18 +1,46 @@
 <!DOCTYPE html>
-<form method="POST">
-    <input type="text" name="username" placeholder="Nom d'utilisateur" required>
-    <input type="password" name="password" placeholder="Mot de passe" required>
-    <input type="submit" value="S'inscrire">
-</form>
-<a href="/login">Déjà inscrit ? Connexion</a>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Inscription - AstroChiots</title>
+    <style>
+        body {
+            background-color: black; /* Fond sombre */
+            color: #fff; /* Texte clair */
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
+        .register-form {
+            background: #2d3b47;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <form method="POST" class="register-form">
+        <h1>Créer un compte - AstroChiots</h1>
+        <input type="text" name="username" placeholder="Nom d'utilisateur" required>
+        <input type="password" name="password" placeholder="Mot de passe" required>
+        <input type="submit" value="S'inscrire">
+        <p>Déjà inscrit ? <a href="/login">Connectez-vous ici.</a></p>
+    </form>
 
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li class="{{ category }}">{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flashes">
+        {% for message in messages %}
+          <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+</body>
+</html>

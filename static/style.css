@@ -1,6 +1,36 @@
 body {
-    font-family: 'ComicSans', sans-serif;
-    background-color: #0a0a1a;
-    color: black;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #0f172a, #1e1b4b);
+    font-family: 'Baloo 2', cursive;
+    color: white;
     text-align: center;
+}
+
+h1 {
+    margin-top: 30px;
+    font-size: 2.5;
+    color: #ffcc70;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 30px;
+}
+
+.gallery img {
+    border-radius: 20px;
+    max-width: 90%;
+    height: auto;
+    max-height: 400px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 25px rgba(255, 204, 112, 0.4);
 }
